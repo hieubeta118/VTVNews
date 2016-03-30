@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translate xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:interpolator="@android:interpolator/accelerate_decelerate"
+    android:fromXDelta="0"
+    android:toXDelta="100%p"
+    android:duration="@integer/fragment_animation_duration"
+    tools:ignore="NewApi" />

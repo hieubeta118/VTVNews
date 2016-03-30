@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".main.ui.activities.VideoActivity">
+
+    <com.astuetz.PagerSlidingTabStrip
+        android:id="@+id/page_tab_video"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/colorPrimary"
+        app:paddingEnd="0dp"
+        app:pstsDividerColor="#000"
+        app:pstsIndicatorColor="@color/white"
+        app:pstsIndicatorHeight="3dp"
+        app:pstsScrollOffset="0dp"
+        app:pstsShouldExpand="true"
+        app:pstsUnderlineHeight="0dp" />
+
+    <vccorp.project.cnnd.vtvnews.main.view.CustomVideoView
+        android:id="@+id/video_play_activity_video_view"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_below="@id/page_tab_video"
+        />
+
+
+    <com.astuetz.PagerSlidingTabStrip
+        android:id="@+id/tab_lich_phat"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@+id/video_play_activity_video_view"
+        android:background="@color/white"
+        app:paddingEnd="0dp"
+        app:pstsDividerColor="#000"
+        app:pstsIndicatorColor="#B41600"
+        app:pstsIndicatorHeight="3dp"
+        app:pstsScrollOffset="0dp"
+        app:pstsShouldExpand="true"
+        app:pstsUnderlineHeight="0dp" />
+
+    <com.astuetz.PagerSlidingTabStrip
+        android:id="@+id/tab_date"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_below="@+id/tab_lich_phat"
+        android:background="@color/white"
+        app:paddingEnd="0dp"
+        app:pstsDividerColor="#000"
+        app:pstsIndicatorColor="#B41600"
+        app:pstsIndicatorHeight="3dp"
+        app:pstsScrollOffset="0dp"
+        app:pstsShouldExpand="true"
+        app:pstsUnderlineHeight="0dp" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/content_channel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tab_date"
+        android:orientation="vertical" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/content_channel1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tab_date"
+        android:background="@color/tab_bg"
+        android:orientation="vertical" />
+</RelativeLayout>

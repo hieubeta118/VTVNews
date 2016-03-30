@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
+
+    <vccorp.project.cnnd.vtvnews.main.view.AutoHighlightImageView
+        android:id="@+id/nav_back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:background="@null"
+        android:paddingBottom="13dp"
+        android:paddingRight="16dp"
+        android:paddingTop="13dp"
+        android:src="@drawable/back" />
+
+    <LinearLayout
+        android:id="@+id/btn_share"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <vccorp.project.cnnd.vtvnews.main.view.AutoHighlightImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_circle_options" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/btn_comment"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/btn_share"
+        android:orientation="vertical">
+
+        <vccorp.project.cnnd.vtvnews.main.view.AutoHighlightImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_centerInParent="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_circle_comment" />
+
+    </RelativeLayout>
+</RelativeLayout>

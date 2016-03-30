@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:background="@color/tab_bg"
+    >
+
+
+    <TextView
+        android:id="@+id/title_tab_lich_chieu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="5dp"
+        android:padding="2dp"
+        android:text="@string/tv_tab_trongnuoc"
+        android:textSize="20sp"
+        android:textColor="@color/default_textView_color"/>
+
+</RelativeLayout>

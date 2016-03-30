@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">VTVnews</string>
+    <string name="tv_main_page_toolbar">Trang chủ</string>
+    <string name="tv_news_toolbar">Tin tức</string>
+    <string name="tv_tv_video_toolbar">TV video</string>
+    ----------------------------------
+    <string name="tv_tab_trongnuoc">Trong nước</string>
+    <string name="tv_tab_thegioi">Thế giới</string>
+    <string name="tv_tab_kinhte">Kinh tế</string>
+    <string name="tv_tab_truyenhinh">Truyền hình</string>
+    <string name="tv_tab_vntg1">Việt Nam </string>
+    <string name="tv_tab_vntg2">Thế giới</string>
+    <string name="tv_tab_giaitri">Giải trí</string>
+    <string name="tv_tab_thethao">Thể thao</string>
+    <string name="tv_tab_giaoduc">Giáo dục</string>
+    <string name="tv_tab_suckhoe">Sức khỏe</string>
+    <string name="tv_tab_congnghe">Công nghệ</string>
+    <string name="tv_tab_doisong">Đời sống</string>
+    <string name="tv_tab_khangia">Khán giả</string>
+    <string name="tv_tab_chuyendong">Chuyển động</string>
+    <string name="tv_tab_vande">Vấn đề hôm nay</string>
+    <string name="tv_tab_tamlongviet">Tấm lòng việt</string>
+    <string name="tv_tab_gocdn">Góc doanh nghiệp</string>
+</resources>
