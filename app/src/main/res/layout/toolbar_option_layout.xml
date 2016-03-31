@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/app_layout_topbar"
+    android:layout_width="fill_parent"
+    android:layout_height="45dp"
+    android:background="@color/colorPrimary" >
+
+    <!-- #F24963 -->
+    <!-- android:background="@drawable/top_tab_bar_bg" -->
+
+    <RelativeLayout
+        android:id="@+id/rel_back"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" >
+
+        <ImageView
+            android:id="@+id/imv_show_menu"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/navigator_icon_back" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/imv_topbar_logo_app"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="Tùy chọn"
+            android:textColor="#ffffff"
+            android:textSize="18dp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rel_notify_cache"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="6dp"
+        android:padding="3dp"
+        android:gravity="center_vertical" >
+
+        <vccorp.project.cnnd.vtvnews.main.view.AutoHighlightImageView
+            android:id="@+id/imv_notify_cache2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_cache_notify_4" />
+
+        <vccorp.project.cnnd.vtvnews.main.view.AutoHighlightImageView
+            android:id="@+id/imv_notify_cache"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="8dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_cache_notify_3" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="#e18700"
+        android:visibility="gone" />
+
+</RelativeLayout>

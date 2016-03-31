@@ -12,6 +12,8 @@
     <color name="default_textview_menu">#3c3c3c</color>
     <color name="menu_divider">#d3d3d3</color>
     <color name="menu_bg">#e6e6e6</color>
+    <color name="colorHighlight">#f7a396</color>
+    <color name="transparent">#00ffffff</color>
 
 
 </resources>

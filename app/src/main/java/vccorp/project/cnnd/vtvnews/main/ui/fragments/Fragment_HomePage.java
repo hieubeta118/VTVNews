@@ -192,6 +192,27 @@ public class Fragment_HomePage extends BaseFragment {
 
     }
 
+    private void onClickMenuItem(int checkedId){
+        switch (checkedId){
+            case R.id.menu_search:
+                String search_url = "http://m.vtv.vn/app/tim-kiem.htm";
+                pushFragment(Fragment_WebViewDetail.newInstance(search_url));
+                return;
+            case R.id.menu_offline:
+                //TODO pushFragment
+                return;
+            case R.id.menu_options:
+                //TODO pushFragment
+                return;
+            case R.id.menu_notify:
+                //TODO pushFragment
+                return;
+            default:
+
+        }
+
+    }
+
     private void loadData() {
         listNewsTopicArrayList.clear();
         topicAdapter.notifyDataSetChanged();

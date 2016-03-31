@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/setting_cache_toolbar"
+        layout="@layout/toolbar_option_layout" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rel_delete_cache"
+        android:layout_below="@+id/setting_cache_toolbar">
+
+        <LinearLayout
+            android:id="@+id/lil_main_content"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#ececec"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#ececec">
+
+                <TextView
+                    android:id="@+id/tev_tittle_cache_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="LẤY TRƯỚC TIN"
+                    android:textColor="#797979"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tev_tittle_cache_1"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:text="Chức năng lấy trước tin sẽ giúp bạn tiết kiệm băng thông và dung lượng 3G"
+                    android:textColor="#797979"
+                    android:textSize="12sp" />
+
+                <ToggleButton
+                    android:id="@+id/tob_auto_cache"
+                    android:layout_width="70dp"
+                    android:layout_height="40dp"
+                    android:layout_above="@+id/textView"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/toggletoswitch"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="#d3d3d3" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/lil_modes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#f7f7f7"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="55dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:drawableLeft="@drawable/ic_with_wifi"
+                        android:drawablePadding="8dp"
+                        android:drawableStart="@drawable/ic_with_wifi"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Với Wifi"
+                        android:textColor="@color/black"
+                        android:textSize="17sp" />
+
+                    <ToggleButton
+                        android:id="@+id/tob_wifi_mode"
+                        android:layout_width="70dp"
+                        android:layout_height="50dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/toggletoswitch"
+                        android:textOff=""
+                        android:textOn="" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="50dp"
+                        android:background="#d3d3d3" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="55dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:drawableLeft="@drawable/ic_with_3g"
+                        android:drawablePadding="8dp"
+                        android:drawableStart="@drawable/ic_with_3g"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Với 3G"
+                        android:textColor="@color/black"
+                        android:textSize="17sp" />
+
+                    <ToggleButton
+                        android:id="@+id/tob_3g_mode"
+                        android:layout_width="70dp"
+                        android:layout_height="50dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/toggletoswitch"
+                        android:textOff=""
+                        android:textOn="" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="#d3d3d3" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="55dp"
+                android:background="#ececec">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="DUNG LƯỢNG CHO PHÉP"
+                    android:textColor="#797979"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/tev_cache_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="100 MB"
+                    android:textColor="#3498db"
+                    android:textSize="18sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="#d3d3d3" />
+            </RelativeLayout>
+
+            <RadioGroup
+                android:id="@+id/rag_cache_size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#f7f7f7"
+                android:checkedButton="@+id/rab_100">
+
+                <RadioButton
+                    android:id="@+id/rab_100"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:button="@color/transparent"
+                    android:checked="true"
+                    android:drawableRight="@xml/selector_cache_radiogroup"
+                    android:paddingLeft="50dp"
+                    android:paddingRight="10dp"
+                    android:text="100 MB"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="50dp"
+                    android:background="#d3d3d3" />
+
+                <RadioButton
+                    android:id="@+id/rab_200"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:button="@color/transparent"
+                    android:drawableRight="@xml/selector_cache_radiogroup"
+                    android:paddingLeft="50dp"
+                    android:paddingRight="10dp"
+                    android:text="200 MB"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="50dp"
+                    android:background="#d3d3d3" />
+
+                <RadioButton
+                    android:id="@+id/rab_300"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:button="@color/transparent"
+                    android:drawableRight="@xml/selector_cache_radiogroup"
+                    android:paddingLeft="50dp"
+                    android:paddingRight="10dp"
+                    android:text="300 MB"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </RadioGroup>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="#d3d3d3" />
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/rel_delete_cache"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="#e74c3c">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Xóa dữ liệu đã cache"
+            android:textColor="@color/white"
+            android:textSize="19sp" />
+    </RelativeLayout>
+
+
+</RelativeLayout>
