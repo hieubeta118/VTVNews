@@ -1,6 +1,7 @@
 package vccorp.project.cnnd.vtvnews.main.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseBooleanArray;
@@ -23,6 +24,7 @@ public class ListTopicAdapter extends RecyclerView.Adapter<ListTopicAdapter.List
     private ArrayList<ListNewsTopic> mNewsTopicItem = new ArrayList<>();
     private Fragment mFragment = null;
     private static Fragment fragment;
+    private int selectedItem = -1;
 
     public ListTopicAdapter(Context ctx, ArrayList<ListNewsTopic> listNewsTopics) {
         mContext = ctx;
@@ -40,7 +42,12 @@ public class ListTopicAdapter extends RecyclerView.Adapter<ListTopicAdapter.List
     public void onBindViewHolder(final ListTopicAdapter.ListTopicViewHolder holder, final int position) {
         final ListNewsTopic listNewsTopic = mNewsTopicItem.get(position);
         holder.tvTopic.setText(listNewsTopic.getCateTitle());
+        if(position == selectedItem){
+            holder.tvTopic.setTextColor(Color.parseColor("#FF0000"));
 
+        }else{
+            holder.tvTopic.setTextColor(Color.parseColor("#6e6e6e"));
+        }
 
     }
 
@@ -61,6 +68,10 @@ public class ListTopicAdapter extends RecyclerView.Adapter<ListTopicAdapter.List
 
         }
 
+    }
+    public void setSelecteditem(int selecteditem) {
+        this.selectedItem = selecteditem;
+        notifyDataSetChanged();
     }
 
 

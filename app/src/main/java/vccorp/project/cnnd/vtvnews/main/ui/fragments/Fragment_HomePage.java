@@ -125,6 +125,7 @@ public class Fragment_HomePage extends BaseFragment {
                     @Override
                     public void onItemClick(View view, int position) {
                         segmentedGroup.clearCheck();
+                        topicAdapter.setSelecteditem(position);
                         final ListNewsTopic listNewsTopic = listNewsTopicArrayList.get(position);
                         Fragment newFragment = new FragmentWebView();
 

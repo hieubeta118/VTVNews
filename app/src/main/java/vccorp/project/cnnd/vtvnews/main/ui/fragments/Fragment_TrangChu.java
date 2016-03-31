@@ -14,6 +14,7 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import vccorp.project.cnnd.vtvnews.R;
+import vccorp.project.cnnd.vtvnews.main.ui.activities.HomeActivity;
 import vccorp.project.cnnd.vtvnews.main.view.BaseFragment;
 
 /**
@@ -44,7 +45,7 @@ public class Fragment_TrangChu extends BaseFragment {
         webView.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 Log.i(TAG, "Processing webview url click...");
-                view.loadUrl(url);
+                ((HomeActivity) getActivity()).pushFragment(Fragment_WebViewDetail.newInstance(url));
                 return true;
             }
 
