@@ -23,6 +23,9 @@ public class BaseFragment extends Fragment {
         super();
         firstLoad = true;
     }
+    public boolean canBack() {
+        return true;
+    }
 
     /**
      * Fragment should be free from event bus, before pop from backstack (and ready to be released).

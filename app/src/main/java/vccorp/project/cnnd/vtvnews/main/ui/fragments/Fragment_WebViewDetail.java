@@ -53,7 +53,7 @@ public class Fragment_WebViewDetail extends BaseFragment{
         webView.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 Log.i(TAG, "Processing webview url click...");
-                view.loadUrl(url);
+                ((HomeActivity) getActivity()).pushFragment(Fragment_WebViewDetail.newInstance(url));
                 return true;
             }
 
