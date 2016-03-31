@@ -1,5 +1,6 @@
 package vccorp.project.cnnd.vtvnews.main.ui.fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -11,9 +12,12 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.Toast;
 
 import vccorp.project.cnnd.vtvnews.R;
+import vccorp.project.cnnd.vtvnews.main.ui.activities.HomeActivity;
+import vccorp.project.cnnd.vtvnews.main.view.AutoHighlightImageView;
 import vccorp.project.cnnd.vtvnews.main.view.BaseFragment;
 
 /**
@@ -23,7 +27,7 @@ public class Fragment_WebViewDetail extends BaseFragment{
     private WebView webView;
     private static final String TAG = "Detail";
     String cateUrl;
-
+    private AutoHighlightImageView imgBack;
     public static Fragment_WebViewDetail newInstance(String mCateUrl){
         Fragment_WebViewDetail fragment_webViewDetail = new Fragment_WebViewDetail();
         fragment_webViewDetail.cateUrl = mCateUrl;
@@ -40,6 +44,7 @@ public class Fragment_WebViewDetail extends BaseFragment{
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         webView = (WebView) view.findViewById(R.id.webview_detail);
+        imgBack = (AutoHighlightImageView) view.findViewById(R.id.nav_back_button);
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
         webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
@@ -70,5 +75,18 @@ public class Fragment_WebViewDetail extends BaseFragment{
             }
         });
         webView.loadUrl(cateUrl);
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Activity activity = getActivity();
+                if (activity != null && activity instanceof HomeActivity && isAdded()) {
+                    ((HomeActivity) getActivity()).popFragment();
+                }
+            }
+        });
+    }
+    @Override
+    public boolean canBack() {
+        return super.canBack();
     }
 }
