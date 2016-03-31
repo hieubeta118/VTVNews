@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.widget.RelativeLayout;
 
 import net.simonvt.menudrawer.MenuDrawer;
+import net.simonvt.menudrawer.Position;
 
 import java.util.Stack;
 
@@ -40,7 +41,7 @@ public class HomeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-//        menuDrawer = MenuDrawer.attach(this, Position.LEFT);
+
 
         if (backStack == null) {
             backStack = new Stack<Fragment>();

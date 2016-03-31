@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/menu_header"
+        layout="@layout/menu_drawer_header" />
+
+    <include
+        android:id="@+id/menu_search"
+        layout="@layout/menu_drawer_item_search" />
+
+    <include
+        android:id="@+id/menu_search"
+        layout="@layout/menu_drawer_item_offline" />
+
+    <include
+        android:id="@+id/menu_search"
+        layout="@layout/menu_drawer_item_options" />
+
+    <include
+        android:id="@+id/menu_search"
+        layout="@layout/menu_drawer_notify" />
+
 
 </LinearLayout>

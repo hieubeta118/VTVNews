@@ -21,4 +21,6 @@
     <string name="tv_tab_vande">Vấn đề hôm nay</string>
     <string name="tv_tab_tamlongviet">Tấm lòng việt</string>
     <string name="tv_tab_gocdn">Góc doanh nghiệp</string>
+    <string name="tv_search_menu">Tìm kiếm</string>
+    <string name="tv_menu_offline">Đọc Offline</string>
 </resources>

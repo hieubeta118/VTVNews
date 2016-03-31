@@ -9,6 +9,9 @@
     <color name="segment_border">#a32614</color>
     <color name="tab_bg">#e1e1e1</color>
     <color name="default_textView_color">#4a484b</color>
+    <color name="default_textview_menu">#3c3c3c</color>
+    <color name="menu_divider">#d3d3d3</color>
+    <color name="menu_bg">#e6e6e6</color>
 
 
 </resources>

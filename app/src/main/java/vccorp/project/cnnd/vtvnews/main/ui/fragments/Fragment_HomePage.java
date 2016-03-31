@@ -6,15 +6,20 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.google.gson.JsonObject;
+
+import net.simonvt.menudrawer.MenuDrawer;
+import net.simonvt.menudrawer.Position;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,6 +36,7 @@ import vccorp.project.cnnd.vtvnews.R;
 import vccorp.project.cnnd.vtvnews.main.adapter.ListTopicAdapter;
 import vccorp.project.cnnd.vtvnews.main.model.ListNewsTopic;
 import vccorp.project.cnnd.vtvnews.main.service.ServiceManager;
+import vccorp.project.cnnd.vtvnews.main.view.AutoHighlightImageView;
 import vccorp.project.cnnd.vtvnews.main.view.BaseFragment;
 import vccorp.project.cnnd.vtvnews.main.view.DividerItemDecoration;
 import vccorp.project.cnnd.vtvnews.main.view.RecyclerItemClickListener;
@@ -39,11 +45,13 @@ import vccorp.project.cnnd.vtvnews.main.view.RecyclerItemClickListener;
  * Created by Admin on 3/30/2016.
  */
 public class Fragment_HomePage extends BaseFragment {
+    private MenuDrawer menuDrawer;
     private RecyclerView recyclerView;
     private SegmentedGroup segmentedGroup;
     private ArrayList<ListNewsTopic> listNewsTopicArrayList;
     private ListTopicAdapter topicAdapter;
     private Stack<Fragment> backStack;
+    private AutoHighlightImageView btnMenu;
     private boolean animating;
 
 
@@ -73,6 +81,8 @@ public class Fragment_HomePage extends BaseFragment {
         if (backStack == null) {
             backStack = new Stack<Fragment>();
         }
+        //Menu drawer init
+        initMenuDrawer(view);
         //main content for fragments
         main_content = (LinearLayout) view.findViewById(R.id.main_content);
         listNewsTopicArrayList = new ArrayList<>();
@@ -137,6 +147,51 @@ public class Fragment_HomePage extends BaseFragment {
                 }));
     }
 
+    private void initMenuDrawer(View view) {
+        menuDrawer = MenuDrawer.attach(getActivity(), Position.LEFT);
+        ((ViewGroup) view.getParent()).removeView(view);
+        menuDrawer.setContentView(view);
+        menuDrawer.setMenuView(R.layout.menu_drawer_layout);
+        menuDrawer.setTouchMode(MenuDrawer.TOUCH_MODE_NONE);
+
+        DisplayMetrics dm = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int width = dm.widthPixels;
+
+        if (width >= 640)
+            menuDrawer.setMenuSize(900);
+        else if (width < 640)
+            menuDrawer.setMenuSize(650);
+        btnMenu = (AutoHighlightImageView) view.findViewById(R.id.btn_menu);
+        btnMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                menuDrawer.openMenu();
+            }
+        });
+//        menuDrawer.setBackgroundColor(getResources().getColor(R.color.menu_bg));
+//        menuDrawer.setDropShadowColor(getResources().getColor(R.color.white));
+
+        menuDrawer.setOnDrawerStateChangeListener(new MenuDrawer.OnDrawerStateChangeListener() {
+            @Override
+            public void onDrawerStateChange(int oldState, int newState) {
+                Log.e("state", String.valueOf(oldState));
+                Log.e("state i1", String.valueOf(newState));
+                if (newState == 0) {
+                    hideKeyboard();
+                }
+
+
+            }
+
+            @Override
+            public void onDrawerSlide(float openRatio, int offsetPixels) {
+
+            }
+        });
+
+    }
+
     private void loadData() {
         listNewsTopicArrayList.clear();
         topicAdapter.notifyDataSetChanged();
@@ -169,6 +224,7 @@ public class Fragment_HomePage extends BaseFragment {
             }
         });
     }
+
     public void pushFragment(Fragment fragment) {
         pushFragment(fragment, true);
     }
@@ -258,24 +314,9 @@ public class Fragment_HomePage extends BaseFragment {
         }
         ft.add(R.id.main_content, fragment, fragment.getClass().getName()).commitAllowingStateLoss();
         getChildFragmentManager().executePendingTransactions();
-//        updateNavigationControl(fragment);
         animating = false;
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        if (animating) {
-//            return;
-//        }
-//        Fragment fragment = backStack.peek();
-//        if (fragment instanceof Fragment_TinTuc) {
-//            replaceAllFragment(Fragment_TrangChu.newInStance());
-//            return;
-//        }
-//
-//
-//        popFragment(true);
-//    }
 
     public void replaceAllFragment(Fragment fragment) {
         if (backStack.isEmpty()) {
@@ -299,23 +340,5 @@ public class Fragment_HomePage extends BaseFragment {
         animating = false;
     }
 
-//    @Override
-//    public void onDestroy() {
-//        super.onDestroy();
-//    }
-//
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//    }
-//
-//    @Override
-//    public void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//    }
-//
-//    @Override
-//    public void onConfigurationChanged(Configuration newConfig) {
-//        super.onConfigurationChanged(newConfig);
-//    }
+
 }
