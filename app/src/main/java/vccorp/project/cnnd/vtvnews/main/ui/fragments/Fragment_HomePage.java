@@ -6,20 +6,18 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 
 import com.google.gson.JsonObject;
-
-import net.simonvt.menudrawer.MenuDrawer;
-import net.simonvt.menudrawer.Position;
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,6 +34,7 @@ import vccorp.project.cnnd.vtvnews.R;
 import vccorp.project.cnnd.vtvnews.main.adapter.ListTopicAdapter;
 import vccorp.project.cnnd.vtvnews.main.model.ListNewsTopic;
 import vccorp.project.cnnd.vtvnews.main.service.ServiceManager;
+import vccorp.project.cnnd.vtvnews.main.ui.activities.HomeActivity;
 import vccorp.project.cnnd.vtvnews.main.view.AutoHighlightImageView;
 import vccorp.project.cnnd.vtvnews.main.view.BaseFragment;
 import vccorp.project.cnnd.vtvnews.main.view.DividerItemDecoration;
@@ -45,7 +44,9 @@ import vccorp.project.cnnd.vtvnews.main.view.RecyclerItemClickListener;
  * Created by Admin on 3/30/2016.
  */
 public class Fragment_HomePage extends BaseFragment {
-    private MenuDrawer menuDrawer;
+    /**
+     * Home Page Fragment declare
+     */
     private RecyclerView recyclerView;
     private SegmentedGroup segmentedGroup;
     private ArrayList<ListNewsTopic> listNewsTopicArrayList;
@@ -63,15 +64,22 @@ public class Fragment_HomePage extends BaseFragment {
     public static final String TAG_MAIN_PAGE = "url";
     public static final String TAG_CATEGORY_URL = "catUrl";
     public static final String TAG_TITLE = "title";
+    public static final String TIM_KIEM_URL = "http://m.vtv.vn/app/tim-kiem.htm";
+    public static final int CLEAR_RECYCLERVIEW_SELECTION = -1;
+
 
     public static Fragment_HomePage newInstance() {
         Fragment_HomePage fragment_homePage = new Fragment_HomePage();
         return fragment_homePage;
     }
 
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+
         return inflater.inflate(R.layout.fragment_homepage, container, false);
     }
 
@@ -81,8 +89,20 @@ public class Fragment_HomePage extends BaseFragment {
         if (backStack == null) {
             backStack = new Stack<Fragment>();
         }
+
+        /**
+         * Fragment Home Page
+         */
         //Menu drawer init
         initMenuDrawer(view);
+        //init Recyclerview
+        initRecyclerview(view);
+        loadData();
+        initSegmentGroup(view);
+
+    }
+
+    private void initRecyclerview(View view) {
         //main content for fragments
         main_content = (LinearLayout) view.findViewById(R.id.main_content);
         listNewsTopicArrayList = new ArrayList<>();
@@ -97,36 +117,6 @@ public class Fragment_HomePage extends BaseFragment {
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),
                 DividerItemDecoration.HORIZONTAL_LIST));
         recyclerView.setAdapter(topicAdapter);
-
-        /**
-         * loadData for recyclerView Item
-         */
-        loadData();
-
-        RadioButton radioButton = (RadioButton) view.findViewById(R.id.btn_trangchu);
-        radioButton.setChecked(true);
-        pushFragment(Fragment_TrangChu.newInStance());
-        /**
-         * Top Menu segment init
-         */
-        segmentedGroup = (SegmentedGroup) view.findViewById(R.id.segmented);
-        segmentedGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.btn_trangchu:
-                        replaceAllFragment(Fragment_TrangChu.newInStance());
-                        return;
-                    case R.id.btn_tintuc:
-                        replaceAllFragment(Fragment_TinTuc.newInStance());
-                        return;
-                    case R.id.btn_video:
-                        replaceAllFragment(Fragment_TV.newInStance());
-                        return;
-                    default:
-                }
-            }
-        });
         /**
          * click recyclerView item to display fragments below
          */
@@ -145,73 +135,86 @@ public class Fragment_HomePage extends BaseFragment {
                         replaceAllFragment(newFragment);
                     }
                 }));
+
+    }
+
+    private void initSegmentGroup(View view) {
+        RadioButton radioButton = (RadioButton) view.findViewById(R.id.btn_trangchu);
+        radioButton.setChecked(true);
+        pushFragment(Fragment_TrangChu.newInStance());
+
+        /**
+         * Top Menu segment init
+         */
+        segmentedGroup = (SegmentedGroup) view.findViewById(R.id.segmented);
+        segmentedGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                topicAdapter.setSelecteditem(CLEAR_RECYCLERVIEW_SELECTION);
+                switch (checkedId) {
+                    case R.id.btn_trangchu:
+                        replaceAllFragment(Fragment_TrangChu.newInStance());
+                        return;
+                    case R.id.btn_tintuc:
+                        replaceAllFragment(Fragment_TinTuc.newInStance());
+                        return;
+                    case R.id.btn_video:
+                        ((HomeActivity) getActivity()).replaceAllFragment(Fragment_TV.newInStance());
+
+                        return;
+                    default:
+                }
+            }
+        });
     }
 
     private void initMenuDrawer(View view) {
-        menuDrawer = MenuDrawer.attach(getActivity(), Position.LEFT);
-        ((ViewGroup) view.getParent()).removeView(view);
-        menuDrawer.setContentView(view);
-        menuDrawer.setMenuView(R.layout.menu_drawer_layout);
-        menuDrawer.setTouchMode(MenuDrawer.TOUCH_MODE_NONE);
-
-        DisplayMetrics dm = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int width = dm.widthPixels;
-
-        if (width >= 640)
-            menuDrawer.setMenuSize(900);
-        else if (width < 640)
-            menuDrawer.setMenuSize(650);
+        View customView = View.inflate(getActivity(), R.layout.menu_drawer_layout, null);
+        final Drawer result = new DrawerBuilder()
+                .withActivity(getActivity())
+                .withCustomView(customView)
+                .build();
         btnMenu = (AutoHighlightImageView) view.findViewById(R.id.btn_menu);
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                menuDrawer.openMenu();
+                result.openDrawer();
+                result.getDrawerLayout();
             }
         });
-//        menuDrawer.setBackgroundColor(getResources().getColor(R.color.menu_bg));
-//        menuDrawer.setDropShadowColor(getResources().getColor(R.color.white));
-
-        menuDrawer.setOnDrawerStateChangeListener(new MenuDrawer.OnDrawerStateChangeListener() {
+        RelativeLayout relativeLayout_search = (RelativeLayout) customView.findViewById(R.id.menu_search);
+        relativeLayout_search.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDrawerStateChange(int oldState, int newState) {
-                Log.e("state", String.valueOf(oldState));
-                Log.e("state i1", String.valueOf(newState));
-                if (newState == 0) {
-                    hideKeyboard();
-                }
+            public void onClick(View v) {
+                result.closeDrawer();
+                segmentedGroup.clearCheck();
+                Fragment newFragment = new FragmentWebView();
 
-
+                Bundle args = new Bundle();
+                args.putString("cateUrl", TIM_KIEM_URL);
+                newFragment.setArguments(args);
+                replaceAllFragment(newFragment);
             }
-
+        });
+        RelativeLayout relativeLayout_Offline = (RelativeLayout) customView.findViewById(R.id.menu_offline);
+        relativeLayout_Offline.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDrawerSlide(float openRatio, int offsetPixels) {
-
+            public void onClick(View v) {
+                result.closeDrawer();
+                ((HomeActivity) getActivity()).pushFragment(Fragment_Offline.newInstance());
+            }
+        });
+        RelativeLayout relativeLayout_Font = (RelativeLayout) customView.findViewById(R.id.menu_options);
+        relativeLayout_Font.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                result.closeDrawer();
+                ((HomeActivity) getActivity()).pushFragment(Fragment_FontSetting.newInstance());
             }
         });
 
     }
 
-    private void onClickMenuItem(int checkedId){
-        switch (checkedId){
-            case R.id.menu_search:
-                String search_url = "http://m.vtv.vn/app/tim-kiem.htm";
-                pushFragment(Fragment_WebViewDetail.newInstance(search_url));
-                return;
-            case R.id.menu_offline:
-                //TODO pushFragment
-                return;
-            case R.id.menu_options:
-                //TODO pushFragment
-                return;
-            case R.id.menu_notify:
-                //TODO pushFragment
-                return;
-            default:
-
-        }
-
-    }
 
     private void loadData() {
         listNewsTopicArrayList.clear();
@@ -275,7 +278,7 @@ public class Fragment_HomePage extends BaseFragment {
         Fragment currentFragment = backStack.isEmpty() ? null : backStack
                 .peek();
         backStack.push(fragment);
-        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        FragmentTransaction ft = getChildFragmentManager().beginTransaction();
         animating = true;
         if (animate) {
             ft.setCustomAnimations(R.anim.slide_in, R.anim.slide_out);
@@ -359,6 +362,12 @@ public class Fragment_HomePage extends BaseFragment {
                 .add(R.id.main_content, fragment, fragment.getClass().getName()).commit();
         getChildFragmentManager().executePendingTransactions();
         animating = false;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
     }
 
 

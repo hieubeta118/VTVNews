@@ -20,17 +20,19 @@ public interface ServiceConfig {
      */
     String LIST_VIDEO = "/api/app.ashx?config=livetv_schedule/";
 
-    String CHANNEL = "&channel=";
+    String CHANNEL = "channel=";
 
     String DAY = "&day=";
 
     String MONTH = "&month=";
 
     String YEAR = "&year=";
+
+    String DEMO_LICH = "/api/app.ashx?config=livetv_schedule&day=11&month=4&year=2016";
     /**
      * List live Channel from VTV1 - > VTV 9
      */
-    String LIST_CHANNEL = "/api/app.ashx?config=livetv/";
+    String LIST_CHANNEL = "/api/app.ashx?config=livetv";
     /**
      * List live Channel video from VTV1 - > VTV9
      */
@@ -42,6 +44,24 @@ public interface ServiceConfig {
     String VIDEO_CLIP_FILE = "/api/app.ashx?config=video_bycat&catvideoid=/";
 
     /**------------------------------------------------------------------------------------------ */
-
+    /**
+     * List categories Url
+     */
     String SOURCE_LINKS = "/api/app.ashx?config=sourceinfo2";
+
+    /**
+     * Comment API
+     */
+    String COMMENT_URL = "/api/app.ashx?config=detail";
+    String NEWS_URL = "newsurl=";
+
+    ///api/app.ashx?config=video_newest&channel=vtv1&pageindex=1&pagesize=10
+    /**
+     * Video related
+     */
+    String VIDEO_RELATED = "/api/app.ashx?config=video_newest";
+
+    String NUMBER_VIDEO = "pageindex=1&pagesize=300";
+
+    String SEARCH_VIDEO_RELATED = "/api/app.ashx?config=video_search";
 }

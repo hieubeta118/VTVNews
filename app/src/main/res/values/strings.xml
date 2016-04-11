@@ -23,4 +23,18 @@
     <string name="tv_tab_gocdn">Góc doanh nghiệp</string>
     <string name="tv_search_menu">Tìm kiếm</string>
     <string name="tv_menu_offline">Đọc Offline</string>
+    <string name="tv_option_menu">Tùy chỉnh</string>
+    <string name="tv_notify_menu">Nhận thông báo</string>
+    ---------------------------Facebook---------------
+    <string name="facebook_app_id">1690225067903333</string>
+    <string name = "successfully_posted_post">Sharing facebook completed</string>
+    <string name="cancelled">cancelled</string>
+    <string name="permission_not_granted">Unable to perform selected action because permissions were not granted.</string>
+    <string name="ok">ok!</string>
+    <string name="hello_user">Hello %1$s!</string>
+    ------------------Email--------------------------
+    <string name="share_error">Share Email Error</string>
+    <string name="share_email_subject">Hello, this is my email</string>
+    ------------------CopyLink----------------------
+    <string name="copy_sucessful">Đường dẫn đã được sao chép</string>
 </resources>

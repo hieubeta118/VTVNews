@@ -8,17 +8,27 @@ public class ListLiveVideoModel {
     private String nameChannel;
     private String thumbImage;
     private String linkShare;
+    private String iconChannel;
 
     public ListLiveVideoModel(){
 
     }
 
     public ListLiveVideoModel(String linkFile, String nameChannel,
-                              String thumbImage, String linkShare){
+                              String thumbImage, String linkShare, String iconChannel){
         this.linkFile = linkFile;
         this.nameChannel = nameChannel;
         this.thumbImage = thumbImage;
         this.linkShare = linkShare;
+        this.iconChannel = iconChannel;
+    }
+
+    public String getIconChannel() {
+        return iconChannel;
+    }
+
+    public void setIconChannel(String iconChannel) {
+        this.iconChannel = iconChannel;
     }
 
     public String getLinkShare() {

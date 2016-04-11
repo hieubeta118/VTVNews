@@ -5,6 +5,13 @@
     android:background="@color/menu_bg"
     android:orientation="vertical">
 
+    <View
+        android:id="@+id/shadow_top"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tool_bar_top_padding"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimaryDark" />
+
     <include
         android:id="@+id/menu_header"
         layout="@layout/menu_drawer_header" />

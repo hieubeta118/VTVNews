@@ -3,10 +3,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="40dp"
-        android:layout_centerInParent="true"
-        android:text="Video related"/>
+    <SearchView
+        android:id="@+id/searchVideo"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/btnSearch"
+        android:layout_toStartOf="@+id/btnSearch" />
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:text="Search" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView_videoRelated"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/searchVideo" />
+
+
 </RelativeLayout>

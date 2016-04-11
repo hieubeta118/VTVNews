@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="AVLoadingIndicatorView">
+        <attr name="indicator">
+            <flag name="BallPulse" value="0"/>
+
+        </attr>
+        <attr name="indicator_color" format="color"/>
+    </declare-styleable>
+    <declare-styleable name="RoundedImageView">
+        <attr name="corner_radius" format="dimension" />
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+        <attr name="mutate_background" format="boolean" />
+        <attr name="oval" format="boolean" />
+        <attr name="android:scaleType" />
+        <attr name="ring" format="boolean" />
+        <attr name="ring_color" format="color" />
+        <attr name="ring_distance" format="dimension" />
+        <attr name="ring_width" format="dimension" />
+    </declare-styleable>
+
+</resources>

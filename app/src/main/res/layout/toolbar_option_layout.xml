@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent" >
 
-        <ImageView
+        <vccorp.project.cnnd.vtvnews.main.view.AutoHighlightImageView
             android:id="@+id/imv_show_menu"
             android:layout_width="32dp"
             android:layout_height="32dp"

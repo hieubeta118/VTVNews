@@ -10,8 +10,8 @@
         android:layout_height="wrap_content"
         android:background="#e02b10">
 
-        <ImageView
-            android:id="@+id/back"
+        <vccorp.project.cnnd.vtvnews.main.view.AutoHighlightImageView
+            android:id="@+id/imgBack_Font"
             android:layout_width="50dp"
             android:layout_height="45dp"
             android:layout_centerVertical="true"

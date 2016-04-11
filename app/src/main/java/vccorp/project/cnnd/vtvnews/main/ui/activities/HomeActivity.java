@@ -6,8 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.RelativeLayout;
 
-import net.simonvt.menudrawer.MenuDrawer;
-import net.simonvt.menudrawer.Position;
+
 
 import java.util.Stack;
 
@@ -15,6 +14,7 @@ import vccorp.project.cnnd.vtvnews.R;
 import vccorp.project.cnnd.vtvnews.main.ui.fragments.Fragment_HomePage;
 import vccorp.project.cnnd.vtvnews.main.ui.fragments.Fragment_TinTuc;
 import vccorp.project.cnnd.vtvnews.main.ui.fragments.Fragment_TrangChu;
+import vccorp.project.cnnd.vtvnews.main.utils.AppPreferences;
 import vccorp.project.cnnd.vtvnews.main.view.BaseActivity;
 import vccorp.project.cnnd.vtvnews.main.view.BaseFragment;
 
@@ -23,7 +23,6 @@ import vccorp.project.cnnd.vtvnews.main.view.BaseFragment;
  */
 public class HomeActivity extends BaseActivity {
 
-    private MenuDrawer menuDrawer;
 //    private PagerSlidingTabStrip pagerSlidingTabStrip;
 //    private ListPagerAdapter pagerAdapter;
 //    private CustomViewpager viewPager;

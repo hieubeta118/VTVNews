@@ -13,6 +13,7 @@ public class ParseListLiveVideo {
         listLiveVideoModel.setNameChannel(jsonObject.optString("name"));
         listLiveVideoModel.setLinkShare(jsonObject.optString("share_url"));
         listLiveVideoModel.setThumbImage(jsonObject.optString("thumb"));
+//        listLiveVideoModel.setIconChannel(jsonObject.optString("image"));
         return listLiveVideoModel;
     }
 }

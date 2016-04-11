@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import vccorp.project.cnnd.vtvnews.main.view.BaseFragment;
  */
 public class Fragment_TinTuc extends BaseFragment{
     private WebView webView;
+//    private SwipeRefreshLayout swipeRefreshLayout;
     private static final String TAG = "Main";
 
     public static Fragment_TinTuc newInStance(){
@@ -38,12 +40,14 @@ public class Fragment_TinTuc extends BaseFragment{
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+//        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh_layout_tintuc);
         webView = (WebView) view.findViewById(R.id.webview_tintuc);
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
         webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
 
         final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+
         webView.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 Log.i(TAG, "Processing webview url click...");

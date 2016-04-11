@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootView_video_related"
+    android:layout_width="match_parent"
+    android:layout_height="75dp"
+    android:background="@drawable/menu_selected_item"
+    android:clickable="true"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/imgThumbVideo"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp" />
+
+    <LinearLayout
+        android:id="@+id/linearTextView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@id/imgThumbVideo"
+        android:layout_toRightOf="@id/imgThumbVideo"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvVideoName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="The Thao Trua - 06/4/2016"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/time_schedule_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="2016-04-06 13:55:16" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

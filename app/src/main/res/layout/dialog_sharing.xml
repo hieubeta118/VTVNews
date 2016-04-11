@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parentView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#00FFFFFF"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="@drawable/common_dialog_background"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:padding="10dp"
+                android:text="Tùy chọn"
+                android:textColor="#3c3c3c"
+                android:textSize="20dp" />
+
+            <vccorp.project.cnnd.vtvnews.main.view.AutoHighlightImageView
+                android:id="@+id/dialogOptionsClose"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_options_close" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#c6c6c6" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/common_dialog_background_bottom"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <vccorp.project.cnnd.vtvnews.main.view.RoundedImageView
+                    android:id="@+id/dialogOptionsShareMail"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_options_share_email"
+                    app:corner_radius="40dp" />
+
+                <vccorp.project.cnnd.vtvnews.main.view.RoundedImageView
+                    android:id="@+id/dialogOptionsShareMessage"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_options_share_line"
+                    app:corner_radius="40dp" />
+
+                <vccorp.project.cnnd.vtvnews.main.view.RoundedImageView
+                    android:id="@+id/dialogOptionsShareFacebook"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_options_share_facebook"
+                    app:corner_radius="40dp" />
+
+                <vccorp.project.cnnd.vtvnews.main.view.RoundedImageView
+                    android:id="@+id/dialogOptionsShareLinkHay"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_options_share_linkhay"
+                    android:visibility="gone"
+                    app:corner_radius="40dp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="#c6c6c6" />
+
+            <RelativeLayout
+                android:id="@+id/dialogOptionsLike"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:visibility="gone">
+
+                <vccorp.project.cnnd.vtvnews.main.view.RoundedImageView
+                    android:id="@+id/dialogOptionsImageLike"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_options_unlike"
+                    app:corner_radius="40dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/dialogOptionsImageLike"
+                    android:padding="10dp"
+                    android:text="Yêu thích"
+                    android:textColor="#3c3c3c"
+                    android:textSize="15dp" />
+
+                <TextView
+                    android:id="@+id/dialogOptionsLikeNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:padding="10dp"
+                    android:text="120.000 người thích"
+                    android:textColor="#3b579d"
+                    android:textSize="15dp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="#c6c6c6"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/dialogOptionsBrower"
+                android:layout_width="match_parent"
+                android:clickable="true"
+                android:background="@drawable/menu_selected_item"
+                android:layout_height="50dp">
+
+                <vccorp.project.cnnd.vtvnews.main.view.RoundedImageView
+                    android:id="@+id/dialogOptionsViewBrowser"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_options_view_brower"
+                    app:corner_radius="40dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/dialogOptionsViewBrowser"
+                    android:layout_toEndOf="@+id/dialogOptionsViewBrowser"
+                    android:padding="10dp"
+                    android:text="Xem bằng trình duyệt"
+                    android:textColor="#3c3c3c"
+                    android:textSize="15dp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="#c6c6c6" />
+
+            <RelativeLayout
+                android:id="@+id/dialogOptionsCopyLinkLayout"
+                android:layout_width="match_parent"
+                android:clickable="true"
+                android:background="@drawable/menu_selected_item"
+                android:layout_height="50dp">
+
+                <vccorp.project.cnnd.vtvnews.main.view.RoundedImageView
+                    android:id="@+id/dialogOptionsCopyLink"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_options_copy_link"
+                    app:corner_radius="40dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/dialogOptionsCopyLink"
+                    android:layout_toEndOf="@+id/dialogOptionsCopyLink"
+                    android:padding="10dp"
+                    android:text="Copy link"
+                    android:textColor="#3c3c3c"
+                    android:textSize="15dp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

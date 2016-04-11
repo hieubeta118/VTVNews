@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,12 +23,15 @@ import vccorp.project.cnnd.vtvnews.main.view.BaseFragment;
  */
 public class Fragment_TrangChu extends BaseFragment {
     private WebView webView;
+//    private SwipeRefreshLayout swipeRefreshLayout;
     private static final String TAG = "Main";
-    public static Fragment_TrangChu newInStance(){
+
+    public static Fragment_TrangChu newInStance() {
         Fragment_TrangChu fragment_trangChu = new Fragment_TrangChu();
         return fragment_trangChu;
 
     }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,14 +42,17 @@ public class Fragment_TrangChu extends BaseFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         webView = (WebView) view.findViewById(R.id.webview_trangchu);
+//        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh_layout_trangchu);
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
         webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
         final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+
         webView.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 Log.i(TAG, "Processing webview url click...");
                 ((HomeActivity) getActivity()).pushFragment(Fragment_WebViewDetail.newInstance(url));
+
                 return true;
             }
 

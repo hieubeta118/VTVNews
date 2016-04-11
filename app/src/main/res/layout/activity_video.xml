@@ -7,67 +7,65 @@
     android:orientation="vertical"
     tools:context=".main.ui.activities.VideoActivity">
 
-    <com.astuetz.PagerSlidingTabStrip
-        android:id="@+id/page_tab_video"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="@color/colorPrimary"
-        app:paddingEnd="0dp"
-        app:pstsDividerColor="#000"
-        app:pstsIndicatorColor="@color/white"
-        app:pstsIndicatorHeight="3dp"
-        app:pstsScrollOffset="0dp"
-        app:pstsShouldExpand="true"
-        app:pstsUnderlineHeight="0dp" />
 
-    <vccorp.project.cnnd.vtvnews.main.view.CustomVideoView
-        android:id="@+id/video_play_activity_video_view"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:layout_below="@id/page_tab_video"
-        />
-
-
-    <com.astuetz.PagerSlidingTabStrip
-        android:id="@+id/tab_lich_phat"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@+id/video_play_activity_video_view"
-        android:background="@color/white"
-        app:paddingEnd="0dp"
-        app:pstsDividerColor="#000"
-        app:pstsIndicatorColor="#B41600"
-        app:pstsIndicatorHeight="3dp"
-        app:pstsScrollOffset="0dp"
-        app:pstsShouldExpand="true"
-        app:pstsUnderlineHeight="0dp" />
-
-    <com.astuetz.PagerSlidingTabStrip
-        android:id="@+id/tab_date"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/toolbarVideo"
         android:layout_width="match_parent"
         android:layout_height="44dp"
-        android:layout_below="@+id/tab_lich_phat"
-        android:background="@color/white"
-        app:paddingEnd="0dp"
-        app:pstsDividerColor="#000"
-        app:pstsIndicatorColor="#B41600"
-        app:pstsIndicatorHeight="3dp"
-        app:pstsScrollOffset="0dp"
-        app:pstsShouldExpand="true"
-        app:pstsUnderlineHeight="0dp" />
+        android:background="@color/colorPrimary" />
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/content_channel"
+    <FrameLayout
+        android:id="@+id/frameLayout_videoView"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_below="@+id/toolbarVideo"
+        android:background="@color/black">
+
+        <com.github.rtoshiro.view.video.FullscreenVideoLayout
+            android:id="@+id/videoView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/linearPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tab_date"
-        android:orientation="vertical" />
+        android:layout_below="@+id/frameLayout_videoView"
+        android:orientation="vertical">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/content_channel1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/tab_date"
-        android:background="@color/tab_bg"
-        android:orientation="vertical" />
+        <com.astuetz.PagerSlidingTabStrip
+            android:id="@+id/tab_lich_phat"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            app:paddingEnd="0dp"
+            app:pstsDividerColor="#000"
+            app:pstsIndicatorColor="#B41600"
+            app:pstsIndicatorHeight="3dp"
+            app:pstsScrollOffset="0dp"
+            app:pstsShouldExpand="true"
+            app:pstsUnderlineHeight="0dp" />
+
+
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/content_channel"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/tab_lich_phat"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical" />
+        <Button
+            android:id="@+id/btndong"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:text="Dong"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+
+
+
+    </RelativeLayout>
+
 </RelativeLayout>

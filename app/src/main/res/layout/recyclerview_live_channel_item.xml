@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="45dp"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
+
+    <vccorp.project.cnnd.vtvnews.main.view.AutoHighlightImageView
+        android:id="@+id/imgChannel"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/vtv1" />
+
+    <View
+        android:id="@+id/underLineItem"
+        android:layout_width="50dp"
+        android:layout_height="4dp"
+        android:layout_alignLeft="@+id/imgChannel"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/imgChannel"
+        android:background="@color/white"
+        android:visibility="gone"/>
+
+</RelativeLayout>
