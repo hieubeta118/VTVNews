@@ -64,4 +64,9 @@ public interface ServiceConfig {
     String NUMBER_VIDEO = "pageindex=1&pagesize=300";
 
     String SEARCH_VIDEO_RELATED = "/api/app.ashx?config=video_search";
+
+    /**
+     * cache link trang chu
+     */
+    String CACHE_URL = "/api/app.ashx?config=listNews";
 }

@@ -1,7 +1,10 @@
 package vccorp.project.cnnd.vtvnews.main.ui.fragments;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -58,6 +61,14 @@ public class FragmentWebView extends BaseFragment implements View.OnTouchListene
         refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh_layout);
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
+        settings.setAppCacheMaxSize(100*1024*1024);
+        settings.setAppCachePath(getActivity().getCacheDir().getAbsolutePath());
+        settings.setAllowFileAccess(true);
+        settings.setAppCacheEnabled(true);
+        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        if(!isNetworkAvailable()){
+            webView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        }
         webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
         final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -99,8 +110,14 @@ public class FragmentWebView extends BaseFragment implements View.OnTouchListene
             }
         });
         webView.setOnTouchListener(this);
+        
 
         webView.loadUrl(cateUrl);
+    }
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     @Override

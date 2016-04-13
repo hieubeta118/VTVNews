@@ -3,8 +3,11 @@ package vccorp.project.cnnd.vtvnews.main.ui.fragments;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -52,6 +55,8 @@ public class Fragment_WebViewDetail extends BaseFragment {
     String newsUrl;
     private ArrayList<CommentModel> commentModelArrayList;
     private AutoHighlightImageView imgBack;
+    boolean isCanShare = true;
+    boolean isCanComment = true;
 
     public static Fragment_WebViewDetail newInstance(String mCateUrl) {
         Fragment_WebViewDetail fragment_webViewDetail = new Fragment_WebViewDetail();
@@ -74,9 +79,17 @@ public class Fragment_WebViewDetail extends BaseFragment {
         LinearLayout btnShare = (LinearLayout) view.findViewById(R.id.btn_share);
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
+        settings.setAppCacheMaxSize(100 * 1024 * 1024);
+        settings.setAppCachePath(getActivity().getCacheDir().getAbsolutePath());
+        settings.setAllowFileAccess(true);
+        settings.setAppCacheEnabled(true);
+        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        if (!isNetworkAvailable()) {
+            webView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        }
         webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
         commentModelArrayList = new ArrayList<>();
-        loadData();
+
 
         final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
         webView.setWebViewClient(new WebViewClient() {
@@ -119,15 +132,31 @@ public class Fragment_WebViewDetail extends BaseFragment {
             @Override
             public void onClick(View v) {
 //                Log.i("getCommentUrl", commentUrl);
-                ((HomeActivity) getActivity()).pushFragment(Fragment_Comment.newInstance(commentUrl));
+                loadData();
+                if (commentUrl == null) {
+                    Toast.makeText(getActivity(), "Khong the comment duong link nay", Toast.LENGTH_LONG).show();
+                } else {
+                    ((HomeActivity) getActivity()).pushFragment(Fragment_Comment.newInstance(commentUrl));
+                }
             }
         });
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showSharingDialog();
+                loadData();
+                if (newsUrl == null) {
+                    Toast.makeText(getActivity(), "Khong the chia se cho duong link nay", Toast.LENGTH_SHORT).show();
+                } else {
+                    showSharingDialog();
+                }
             }
         });
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     @Override
@@ -141,32 +170,52 @@ public class Fragment_WebViewDetail extends BaseFragment {
         fragmentDialog.show(fragmentManager, " ");
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (commentModelArrayList == null) {
+            loadData();
+        }
+    }
+
     /**
      * load commentUrl following @param cateUrl
      */
     public void loadData() {
         commentModelArrayList.clear();
+        Log.i("getCAte", cateUrl);
         ServiceManager.getInstance().getCommentUrl(cateUrl, new Callback<JsonObject>() {
             @Override
             public void success(JsonObject jsonObject, Response response) {
-                try {
-                    final CommentModel commentModel = new CommentModel();
-                    JSONObject responseObject = new JSONObject(jsonObject.toString());
-                    commentUrl = responseObject.optString("commentUrl");
-                    Log.i("comment", commentUrl);
-                    newsUrl = responseObject.optString("newsUrl");
-                    String newsTitle = responseObject.optString("newsTitleFull");
-                    /**
-                     * Preference save newsUrl to share
-                     */
-                    AppPreferences.INSTANCE.setShareUrl(newsUrl);
-                    AppPreferences.INSTANCE.setNewsTitles(newsTitle);
-                    commentModel.setUrlNews(responseObject.optString("newsUrl"));
+                if (jsonObject != null) {
+                    try {
 
-                    Log.i("WEbNews", newsUrl);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    e.getMessage();
+                        final CommentModel commentModel = new CommentModel();
+                        JSONObject responseObject = new JSONObject(jsonObject.toString());
+                        if (responseObject.equals("")) {
+                            Toast.makeText(getActivity(), "Object null", Toast.LENGTH_LONG).show();
+                        } else {
+                            commentUrl = responseObject.optString("commentUrl");
+                            Log.i("comment", commentUrl);
+                            newsUrl = responseObject.optString("newsUrl");
+                            String newsTitle = responseObject.optString("newsTitleFull");
+                            /**
+                             * Preference save newsUrl to share
+                             */
+                            AppPreferences.INSTANCE.setShareUrl(newsUrl);
+                            AppPreferences.INSTANCE.setNewsTitles(newsTitle);
+                            commentModel.setUrlNews(responseObject.optString("newsUrl"));
+                        }
+
+
+                        Log.i("WEbNews", newsUrl);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        e.getMessage();
+                    }
+                } else {
+
+                    Toast.makeText(getActivity(), "Khong the chia se cho duong link nay", Toast.LENGTH_SHORT).show();
                 }
             }
 

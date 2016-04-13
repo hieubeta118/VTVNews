@@ -101,21 +101,11 @@ public class LichChieuAdapter extends RecyclerView.Adapter<LichChieuAdapter.Lich
             String formattedDate = formatter.format(calendar.getTime());
             Log.i("getCurrent", String.valueOf(formattedDate));
             Date currentDate = formatter.parse(formattedDate);
-            int difference = currentDate.compareTo(formatter.parse(lichChieuModel.getScheduleTime()));
-
-            if (difference == 0) {
-                Log.i("GetTimeQ", "Same");
-
-
-            } else if (difference < 0) {
-                Log.i("GetTimeQ", "Less");
-
-            } else {
-                Log.i("GetTimeQ", "Greater");
-                while (difference < 0){
-                    holder.tvTitle.setTextColor(mContext.getResources().getColor(R.color.md_red_400));
-                }
-            }
+            int differenceLon = currentDate.compareTo(formatter.parse(lichChieuModel.getScheduleTime()));
+//            int differenceNho = currentDate.compareTo(formatter.parse(lichChieuModel.getEndTime()));
+//            if(differenceLon > 0 && differenceNho < 1){
+//                Log.i("getOnAir", "OnAir");
+//            }
         } catch (ParseException e) {
             e.getMessage();
         }
