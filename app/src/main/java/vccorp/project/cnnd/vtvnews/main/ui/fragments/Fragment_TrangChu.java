@@ -20,6 +20,7 @@ import android.widget.Toast;
 import de.greenrobot.event.EventBus;
 import vccorp.project.cnnd.vtvnews.R;
 import vccorp.project.cnnd.vtvnews.main.ui.activities.HomeActivity;
+import vccorp.project.cnnd.vtvnews.main.utils.AppPreferences;
 import vccorp.project.cnnd.vtvnews.main.view.BaseFragment;
 
 /**
@@ -27,9 +28,17 @@ import vccorp.project.cnnd.vtvnews.main.view.BaseFragment;
  */
 public class Fragment_TrangChu extends BaseFragment {
     private WebView webView;
-//    private SwipeRefreshLayout swipeRefreshLayout;
+    //    private SwipeRefreshLayout swipeRefreshLayout;
     private static final String TAG = "Main";
-    int mCacheMemory =0;
+    public static final String NORMAL = "normal";
+    public static final String MEDIUM = "medium";
+    public static final String BIG = "big";
+    public static final String WHITE_BG = "white_bg";
+    public static final String WHITE_TV = "white_tv";
+    public static final String BLACK_BG = "black_bg";
+    public static final String BLACK_TV = "black_tv";
+    int mCacheMemory = 0;
+    private Bundle webViewBundle;
 
     public static Fragment_TrangChu newInStance() {
         Fragment_TrangChu fragment_trangChu = new Fragment_TrangChu();
@@ -44,19 +53,18 @@ public class Fragment_TrangChu extends BaseFragment {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        webView = (WebView) view.findViewById(R.id.webview_trangchu);
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        webView = (WebView) getView().findViewById(R.id.webview_trangchu);
 //        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh_layout_trangchu);
-
-        WebSettings settings = webView.getSettings();
-        settings.setJavaScriptEnabled(true);
-        settings.setAppCacheMaxSize(100*1024*1024);
-        settings.setAppCachePath(getActivity().getCacheDir().getAbsolutePath());
-        settings.setAllowFileAccess(true);
-        settings.setAppCacheEnabled(true);
-        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
-        if(!isNetworkAvailable()){
+        if(savedInstanceState != null){
+            Log.i("saveInstance", "not null");
+            webView.restoreState(savedInstanceState);
+        }else{
+            webView.loadUrl("http://m.vtv.vn/app.htm");
+        }
+        webSetting();
+        if (!isNetworkAvailable()) {
             webView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         }
         webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
@@ -77,7 +85,7 @@ public class Fragment_TrangChu extends BaseFragment {
 
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                 Log.e(TAG, "Error: " + description);
-                Toast.makeText(getActivity(), "Oh no! " + description, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "Oh no! " + description, Toast.LENGTH_SHORT).show();
                 alertDialog.setTitle("Error");
                 alertDialog.setMessage(description);
                 alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
@@ -88,7 +96,39 @@ public class Fragment_TrangChu extends BaseFragment {
                 alertDialog.show();
             }
         });
-        webView.loadUrl("http://m.vtv.vn/app.htm");
+    }
+
+    private void webSetting() {
+        WebSettings settings = webView.getSettings();
+
+        settings.setJavaScriptEnabled(true);
+        settings.setAppCacheMaxSize(100 * 1024 * 1024);
+//        Log.i("getSize", AppPreferences.INSTANCE.getTextSize());
+        if (AppPreferences.INSTANCE.getTextSize() != null) {
+            if (AppPreferences.INSTANCE.getTextSize().equals(NORMAL)) {
+                getTextSizeDefault();
+            } else if (AppPreferences.INSTANCE.getTextSize().equals(MEDIUM)) {
+                getTextSizeBigger();
+            } else if (AppPreferences.INSTANCE.getTextSize().equals(BIG)) {
+                getTextSizeBiggest();
+            }
+        }
+//        if (AppPreferences.INSTANCE.getTextviewColor() != null && AppPreferences.INSTANCE.getWebviewBg() != null) {
+//            if (AppPreferences.INSTANCE.getTextviewColor().equals(BLACK_TV) &&
+//                    AppPreferences.INSTANCE.getWebviewBg().equals(WHITE_BG)) {
+//                webView.setBackgroundColor(getResources().getColor(R.color.white));
+//                webView.loadUrl("javascript:document.body.style.color=\"black\";");
+//            } else if (AppPreferences.INSTANCE.getTextviewColor().equals(WHITE_TV) &&
+//                    AppPreferences.INSTANCE.getWebviewBg().equals(BLACK_BG)) {
+//                webView.setBackgroundColor(getResources().getColor(R.color.md_blue_grey_500));
+//                webView.loadUrl("javascript:document.body.style.color=\"white\";");
+//            }
+//        }
+
+        settings.setAppCachePath(getActivity().getCacheDir().getAbsolutePath());
+        settings.setAllowFileAccess(true);
+        settings.setAppCacheEnabled(true);
+        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
     }
 
     private boolean isNetworkAvailable() {
@@ -96,10 +136,11 @@ public class Fragment_TrangChu extends BaseFragment {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
-    public void onEvent(int cacheMemory){
-        if(cacheMemory != 0){
-            Toast.makeText(getActivity(), "offline"+String.valueOf(mCacheMemory),Toast.LENGTH_SHORT).show();
-        }else{
+
+    public void onEvent(int cacheMemory) {
+        if (cacheMemory != 0) {
+            Toast.makeText(getActivity(), "offline" + String.valueOf(mCacheMemory), Toast.LENGTH_SHORT).show();
+        } else {
             Log.i("getEvent", String.valueOf(mCacheMemory));
             mCacheMemory = cacheMemory;
         }
@@ -115,6 +156,31 @@ public class Fragment_TrangChu extends BaseFragment {
     public void onPause() {
         super.onPause();
         EventBus.getDefault().unregister(this);
+        webViewBundle = new Bundle();
+        webView.saveState(webViewBundle);
 
     }
+
+    private void getTextSizeDefault() {
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setTextZoom(webSettings.getTextZoom());
+    }
+
+    private void getTextSizeBigger() {
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setTextZoom(webSettings.getTextZoom() + 15);
+    }
+
+    private void getTextSizeBiggest() {
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setTextZoom(webSettings.getTextZoom() + 30);
+    }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        webView.saveState(outState);
+    }
+
+
+
 }

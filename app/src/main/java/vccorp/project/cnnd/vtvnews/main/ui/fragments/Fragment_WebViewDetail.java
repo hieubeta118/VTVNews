@@ -50,13 +50,15 @@ import vccorp.project.cnnd.vtvnews.main.view.RoundedImageView;
 public class Fragment_WebViewDetail extends BaseFragment {
     private WebView webView;
     private static final String TAG = "Detail";
+    public static final String NORMAL = "normal";
+    public static final String MEDIUM = "medium";
+    public static final String BIG = "big";
     String cateUrl;
     String commentUrl;
     String newsUrl;
     private ArrayList<CommentModel> commentModelArrayList;
     private AutoHighlightImageView imgBack;
-    boolean isCanShare = true;
-    boolean isCanComment = true;
+
 
     public static Fragment_WebViewDetail newInstance(String mCateUrl) {
         Fragment_WebViewDetail fragment_webViewDetail = new Fragment_WebViewDetail();
@@ -78,6 +80,16 @@ public class Fragment_WebViewDetail extends BaseFragment {
         RelativeLayout btnComment = (RelativeLayout) view.findViewById(R.id.btn_comment);
         LinearLayout btnShare = (LinearLayout) view.findViewById(R.id.btn_share);
         WebSettings settings = webView.getSettings();
+//        Log.i("getSize", AppPreferences.INSTANCE.getTextSize());
+        if(AppPreferences.INSTANCE.getTextSize() != null){
+            if(AppPreferences.INSTANCE.getTextSize().equals(NORMAL)){
+                getTextSizeDefault();
+            }else if(AppPreferences.INSTANCE.getTextSize().equals(MEDIUM)){
+                getTextSizeBigger();
+            }else if(AppPreferences.INSTANCE.getTextSize().equals(BIG)){
+                getTextSizeBiggest();
+            }
+        }
         settings.setJavaScriptEnabled(true);
         settings.setAppCacheMaxSize(100 * 1024 * 1024);
         settings.setAppCachePath(getActivity().getCacheDir().getAbsolutePath());
@@ -106,7 +118,7 @@ public class Fragment_WebViewDetail extends BaseFragment {
 
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                 Log.e(TAG, "Error: " + description);
-                Toast.makeText(getActivity(), "Oh no! " + description, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "Oh no! " + description, Toast.LENGTH_SHORT).show();
                 alertDialog.setTitle("Error");
                 alertDialog.setMessage(description);
                 alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
@@ -134,7 +146,7 @@ public class Fragment_WebViewDetail extends BaseFragment {
 //                Log.i("getCommentUrl", commentUrl);
                 loadData();
                 if (commentUrl == null) {
-                    Toast.makeText(getActivity(), "Khong the comment duong link nay", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Không thể comment đường dẫn này", Toast.LENGTH_LONG).show();
                 } else {
                     ((HomeActivity) getActivity()).pushFragment(Fragment_Comment.newInstance(commentUrl));
                 }
@@ -145,7 +157,7 @@ public class Fragment_WebViewDetail extends BaseFragment {
             public void onClick(View v) {
                 loadData();
                 if (newsUrl == null) {
-                    Toast.makeText(getActivity(), "Khong the chia se cho duong link nay", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Không thể chia sẻ đường dẫn này", Toast.LENGTH_SHORT).show();
                 } else {
                     showSharingDialog();
                 }
@@ -193,7 +205,7 @@ public class Fragment_WebViewDetail extends BaseFragment {
                         final CommentModel commentModel = new CommentModel();
                         JSONObject responseObject = new JSONObject(jsonObject.toString());
                         if (responseObject.equals("")) {
-                            Toast.makeText(getActivity(), "Object null", Toast.LENGTH_LONG).show();
+                            return;
                         } else {
                             commentUrl = responseObject.optString("commentUrl");
                             Log.i("comment", commentUrl);
@@ -215,7 +227,7 @@ public class Fragment_WebViewDetail extends BaseFragment {
                     }
                 } else {
 
-                    Toast.makeText(getActivity(), "Khong the chia se cho duong link nay", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Không thể parse", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -224,5 +236,17 @@ public class Fragment_WebViewDetail extends BaseFragment {
                 Log.e("error http", error.toString());
             }
         });
+    }
+    private void getTextSizeDefault(){
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setTextZoom(webSettings.getTextZoom());
+    }
+    private void getTextSizeBigger(){
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setTextZoom(webSettings.getTextZoom() + 15);
+    }
+    private void getTextSizeBiggest(){
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setTextZoom(webSettings.getTextZoom() + 30);
     }
 }

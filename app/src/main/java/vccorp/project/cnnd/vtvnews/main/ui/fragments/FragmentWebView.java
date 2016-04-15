@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import vccorp.project.cnnd.vtvnews.R;
 import vccorp.project.cnnd.vtvnews.main.ui.activities.HomeActivity;
+import vccorp.project.cnnd.vtvnews.main.utils.AppPreferences;
 import vccorp.project.cnnd.vtvnews.main.view.BaseFragment;
 
 /**
@@ -39,6 +40,9 @@ public class FragmentWebView extends BaseFragment implements View.OnTouchListene
     private static final String DEFAULT_KEY = "http://m.vtv.vn/app.htm";
     private static final int CLICK_ON_WEBVIEW = 1;
     private static final int CLICK_ON_URL = 2;
+    public static final String NORMAL = "normal";
+    public static final String MEDIUM = "medium";
+    public static final String BIG = "big";
 
     public static FragmentWebView newInStance() {
         FragmentWebView fragmentWebView = new FragmentWebView();
@@ -60,6 +64,16 @@ public class FragmentWebView extends BaseFragment implements View.OnTouchListene
         webView = (WebView) view.findViewById(R.id.webview_trongnuoc);
         refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh_layout);
         WebSettings settings = webView.getSettings();
+//        Log.i("getSize", AppPreferences.INSTANCE.getTextSize());
+        if(AppPreferences.INSTANCE.getTextSize() != null){
+            if(AppPreferences.INSTANCE.getTextSize().equals(NORMAL)){
+                getTextSizeDefault();
+            }else if(AppPreferences.INSTANCE.getTextSize().equals(MEDIUM)){
+                getTextSizeBigger();
+            }else if(AppPreferences.INSTANCE.getTextSize().equals(BIG)){
+                getTextSizeBiggest();
+            }
+        }
         settings.setJavaScriptEnabled(true);
         settings.setAppCacheMaxSize(100*1024*1024);
         settings.setAppCachePath(getActivity().getCacheDir().getAbsolutePath());
@@ -139,5 +153,17 @@ public class FragmentWebView extends BaseFragment implements View.OnTouchListene
             handler.sendEmptyMessageDelayed(CLICK_ON_WEBVIEW, 500);
         }
         return false;
+    }
+    private void getTextSizeDefault(){
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setTextZoom(webSettings.getTextZoom());
+    }
+    private void getTextSizeBigger(){
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setTextZoom(webSettings.getTextZoom() + 15);
+    }
+    private void getTextSizeBiggest(){
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setTextZoom(webSettings.getTextZoom() + 30);
     }
 }

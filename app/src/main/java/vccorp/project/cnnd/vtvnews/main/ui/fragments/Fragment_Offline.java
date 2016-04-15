@@ -3,6 +3,7 @@ package vccorp.project.cnnd.vtvnews.main.ui.fragments;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -14,9 +15,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.google.gson.JsonArray;
 
@@ -44,6 +48,7 @@ import retrofit.client.Response;
 import vccorp.project.cnnd.vtvnews.R;
 import vccorp.project.cnnd.vtvnews.main.service.ServiceManager;
 import vccorp.project.cnnd.vtvnews.main.ui.activities.HomeActivity;
+import vccorp.project.cnnd.vtvnews.main.utils.AppPreferences;
 import vccorp.project.cnnd.vtvnews.main.view.AutoHighlightImageView;
 import vccorp.project.cnnd.vtvnews.main.view.BaseFragment;
 
@@ -52,8 +57,11 @@ import vccorp.project.cnnd.vtvnews.main.view.BaseFragment;
  */
 public class Fragment_Offline extends BaseFragment {
     private static final String TAG = "Offline";
+    private static final String GET_TOGGLE_CACHE_OPEN = "open";
+    private static final String GET_TOGGLE_CACHE_OFF = "off";
     private RadioGroup radioGroup;
     private RelativeLayout relativeDownloadCache;
+    private ToggleButton toggleButtonCache;
     ArrayList<String> fileNames = new ArrayList<String>();
     ArrayList<String> urls = new ArrayList<String>();
     ArrayList<String> paths = new ArrayList<String>();
@@ -77,7 +85,8 @@ public class Fragment_Offline extends BaseFragment {
         initUI(view);
     }
 
-    private void initUI(View view) {
+    private void initUI(final View view) {
+        final LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.lil_modes);
         AutoHighlightImageView imgBack = (AutoHighlightImageView) view.findViewById(R.id.imv_show_menu);
         imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,9 +174,23 @@ public class Fragment_Offline extends BaseFragment {
 
             }
         });
+        toggleButtonCache = (ToggleButton) view.findViewById(R.id.tob_auto_cache);
+        toggleButtonCache.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (toggleButtonCache.isChecked()) {
+                    AppPreferences.INSTANCE.setCacheToggleButtonState(GET_TOGGLE_CACHE_OPEN);
+                    linearLayout.setVisibility(View.VISIBLE);
+                } else {
+                    AppPreferences.INSTANCE.setCacheToggleButtonState(GET_TOGGLE_CACHE_OFF);
+                    linearLayout.setVisibility(View.GONE);
+                }
+            }
+        });
 
 
     }
+
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
@@ -265,5 +288,37 @@ public class Fragment_Offline extends BaseFragment {
     @Override
     public boolean canBack() {
         return super.canBack();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//        SharedPreferences preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+//        boolean tgpref = preferences.getBoolean("toggleCache", true);  //default is true
+//        if (tgpref = true) //if (tgpref) may be enough, not sure
+//        {
+//            toggleButtonCache.setChecked(true);
+//        } else {
+//            toggleButtonCache.setChecked(false);
+//        }
+        if(AppPreferences.INSTANCE.getStateCacheTogg() != null){
+            if (AppPreferences.INSTANCE.getStateCacheTogg().equals(GET_TOGGLE_CACHE_OPEN)){
+                toggleButtonCache.setChecked(true);
+            }else if(AppPreferences.INSTANCE.getStateCacheTogg().equals(GET_TOGGLE_CACHE_OFF)){
+                toggleButtonCache.setChecked(false);
+            }
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(AppPreferences.INSTANCE.getStateCacheTogg() != null){
+            if (AppPreferences.INSTANCE.getStateCacheTogg().equals(GET_TOGGLE_CACHE_OPEN)){
+                toggleButtonCache.setChecked(true);
+            }else if(AppPreferences.INSTANCE.getStateCacheTogg().equals(GET_TOGGLE_CACHE_OFF)){
+                toggleButtonCache.setChecked(false);
+            }
+        }
     }
 }
