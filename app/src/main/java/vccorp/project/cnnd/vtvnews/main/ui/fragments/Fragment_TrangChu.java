@@ -80,16 +80,7 @@ public class Fragment_TrangChu extends BaseFragment {
                 ((HomeActivity) getActivity()).pushFragment(Fragment_WebViewDetail.newInstance(url));
 //                ((HomeActivity) getActivity()).showFragment(Fragment_WebViewDetail.newInstance(url));
 //                showFragment(Fragment_WebViewDetail.newInstance(url));
-//                if(url == null){
-//
-//                    Log.i("saveInstance", "null con me no roi");
-//                    webView.loadUrl("http://m.vtv.vn/app.htm");
-//                } else {
-//                    Log.i("saveInstance", "not null");
-//                    Log.i("getWeb", String.valueOf(url));
-//
-//
-//                }
+
                 return true;
             }
 
