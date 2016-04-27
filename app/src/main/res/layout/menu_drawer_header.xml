@@ -20,7 +20,7 @@
     <LinearLayout
         android:id="@+id/linearTextView"
         android:layout_width="match_parent"
-        android:layout_height="38dp"
+        android:layout_height="44dp"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@id/logo_vtv"
         android:layout_toRightOf="@id/logo_vtv"

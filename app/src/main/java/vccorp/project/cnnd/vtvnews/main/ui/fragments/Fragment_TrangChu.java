@@ -7,6 +7,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,6 +41,8 @@ public class Fragment_TrangChu extends BaseFragment {
     public static final String BLACK_TV = "black_tv";
     int mCacheMemory = 0;
     private Bundle webViewBundle;
+    private View rootView;
+    boolean loadingFinished = true;
 
     public static Fragment_TrangChu newInStance() {
         Fragment_TrangChu fragment_trangChu = new Fragment_TrangChu();
@@ -48,38 +52,50 @@ public class Fragment_TrangChu extends BaseFragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_trangchu, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, final Bundle savedInstanceState) {
+        if (rootView == null) {
+            rootView = inflater.inflate(R.layout.fragment_trangchu, container, false);
+        }
+        return rootView;
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        webView = (WebView) getView().findViewById(R.id.webview_trangchu);
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        webView = (WebView) view.findViewById(R.id.webview_trangchu);
 //        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh_layout_trangchu);
-        if(savedInstanceState != null){
-            Log.i("saveInstance", "not null");
-            webView.restoreState(savedInstanceState);
-        }else{
-            webView.loadUrl("http://m.vtv.vn/app.htm");
-        }
+
         webSetting();
         if (!isNetworkAvailable()) {
             webView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         }
         webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
         final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
-
+        webView.loadUrl("http://m.vtv.vn/app.htm");
         webView.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 Log.i(TAG, "Processing webview url click...");
+                System.out.println("your current url when webpage loading.." + url);
+                loadingFinished = false;
                 ((HomeActivity) getActivity()).pushFragment(Fragment_WebViewDetail.newInstance(url));
-
+//                ((HomeActivity) getActivity()).showFragment(Fragment_WebViewDetail.newInstance(url));
+//                showFragment(Fragment_WebViewDetail.newInstance(url));
+//                if(url == null){
+//
+//                    Log.i("saveInstance", "null con me no roi");
+//                    webView.loadUrl("http://m.vtv.vn/app.htm");
+//                } else {
+//                    Log.i("saveInstance", "not null");
+//                    Log.i("getWeb", String.valueOf(url));
+//
+//
+//                }
                 return true;
             }
 
             public void onPageFinished(WebView view, String url) {
                 Log.i(TAG, "Finished loading URL: " + url);
+
 
             }
 
@@ -96,7 +112,32 @@ public class Fragment_TrangChu extends BaseFragment {
                 alertDialog.show();
             }
         });
+        if (!loadingFinished) {
+            return;
+        } else {
+            webView.loadUrl("http://m.vtv.vn/app.htm");
+
+        }
+
+
     }
+    //    public void showFragment(Fragment fragment){
+//        Log.i("getShow", "show fragment");
+////        FragmentManager fm = getSupportFragmentManager();
+////        fm.beginTransaction().setCustomAnimations(R.anim.back_slide_in, R.anim.back_slide_out)
+////                .show(fragment).commit();
+//        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//        fragmentTransaction.setCustomAnimations(R.anim.back_slide_in, R.anim.back_slide_out);
+//        if(fragment.isHidden()){
+//            fragmentTransaction.show(fragment);
+//            Log.i("getShowHide", "Show");
+//        }else{
+//            fragmentTransaction.hide(fragment);
+//            Log.i("getShowHide", "Hide");
+//        }
+//        fragmentTransaction.commit();
+//    }
+
 
     private void webSetting() {
         WebSettings settings = webView.getSettings();
@@ -156,8 +197,6 @@ public class Fragment_TrangChu extends BaseFragment {
     public void onPause() {
         super.onPause();
         EventBus.getDefault().unregister(this);
-        webViewBundle = new Bundle();
-        webView.saveState(webViewBundle);
 
     }
 
@@ -175,12 +214,19 @@ public class Fragment_TrangChu extends BaseFragment {
         WebSettings webSettings = webView.getSettings();
         webSettings.setTextZoom(webSettings.getTextZoom() + 30);
     }
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         webView.saveState(outState);
     }
 
+    @Override
+    public void onDestroyView() {
+        if (rootView != null && rootView.getParent() != null) {
+            ((ViewGroup) rootView.getParent()).removeView(rootView);
+        }
+        super.onDestroyView();
 
-
+    }
 }

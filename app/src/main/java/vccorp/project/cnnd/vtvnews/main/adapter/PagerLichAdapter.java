@@ -35,7 +35,7 @@ public class PagerLichAdapter extends FragmentStatePagerAdapter implements Pager
         super(fm);
         mContext = ctx;
     }
-    private final String[] TITLES = {"Lịch chiếu", "Related Video"};
+    private final String[] TITLES = {"Lịch chiếu", "Video liên quan"};
 
     @Override
     public View getCustomTabView(ViewGroup parent, int position) {
@@ -68,7 +68,7 @@ public class PagerLichAdapter extends FragmentStatePagerAdapter implements Pager
     public int getItemPosition(Object object) {
       if(object instanceof Updateable){
           ((Updateable) object).update(AppPreferences.INSTANCE.getChannelName());
-          Log.i("getChenn", AppPreferences.INSTANCE.getChannelName());
+//          Log.i("getChenn", AppPreferences.INSTANCE.getChannelName());
       }
 
         return super.getItemPosition(object);

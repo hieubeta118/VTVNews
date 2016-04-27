@@ -11,7 +11,9 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -137,6 +139,7 @@ public class Fragment_WebViewDetail extends BaseFragment {
                 Activity activity = getActivity();
                 if (activity != null && activity instanceof HomeActivity && isAdded()) {
                     ((HomeActivity) getActivity()).popFragment();
+//                    showFragment(getParentFragment());
                 }
             }
         });
@@ -181,7 +184,22 @@ public class Fragment_WebViewDetail extends BaseFragment {
         Fragment_Dialog fragmentDialog = new Fragment_Dialog();
         fragmentDialog.show(fragmentManager, " ");
     }
-
+//    public void showFragment(Fragment fragment){
+//        Log.i("getShow", "show fragment");
+////        FragmentManager fm = getSupportFragmentManager();
+////        fm.beginTransaction().setCustomAnimations(R.anim.back_slide_in, R.anim.back_slide_out)
+////                .show(fragment).commit();
+//        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//        fragmentTransaction.setCustomAnimations(R.anim.back_slide_in, R.anim.back_slide_out);
+//        if(fragment.isHidden()){
+//            fragmentTransaction.show(fragment);
+//            Log.i("getShowHide", "Show");
+//        }else{
+//            fragmentTransaction.hide(fragment);
+//            Log.i("getShowHide", "Hide");
+//        }
+//        fragmentTransaction.commit();
+//    }
     @Override
     public void onResume() {
         super.onResume();
@@ -237,6 +255,7 @@ public class Fragment_WebViewDetail extends BaseFragment {
             }
         });
     }
+
     private void getTextSizeDefault(){
         WebSettings webSettings = webView.getSettings();
         webSettings.setTextZoom(webSettings.getTextZoom());
@@ -249,4 +268,15 @@ public class Fragment_WebViewDetail extends BaseFragment {
         WebSettings webSettings = webView.getSettings();
         webSettings.setTextZoom(webSettings.getTextZoom() + 30);
     }
+    public void hideFragment(Fragment fragment){
+
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.back_slide_in,
+                        R.anim.back_slide_out)
+                .hide(fragment).commit();
+
+
+    }
+
 }

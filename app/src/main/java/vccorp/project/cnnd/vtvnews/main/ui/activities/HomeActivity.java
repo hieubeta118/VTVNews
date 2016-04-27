@@ -3,7 +3,9 @@ package vccorp.project.cnnd.vtvnews.main.ui.activities;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.widget.RelativeLayout;
 
 
@@ -115,6 +117,7 @@ public class HomeActivity extends BaseActivity {
         animating = false;
     }
 
+
     public void popFragment() {
         popFragment(true);
     }
@@ -165,6 +168,9 @@ public class HomeActivity extends BaseActivity {
 //        updateNavigationControl(fragment);
         animating = false;
     }
+
+
+
 
     @Override
     public void onBackPressed() {

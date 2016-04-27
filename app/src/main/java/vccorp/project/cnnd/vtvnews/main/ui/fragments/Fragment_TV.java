@@ -83,7 +83,7 @@ public class Fragment_TV extends BaseFragment {
         videoLayout = (FullscreenVideoLayout)
                 view.findViewById(R.id.videoView);
         videoLayout.setActivity(getActivity());
-        Log.i("getVideo", AppPreferences.INSTANCE.getVideoURI());
+//        Log.i("getVideo", AppPreferences.INSTANCE.getVideoURI());
 
 
 

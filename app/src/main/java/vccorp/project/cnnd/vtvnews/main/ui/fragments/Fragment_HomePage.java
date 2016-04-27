@@ -225,13 +225,13 @@ public class Fragment_HomePage extends BaseFragment {
                 try {
                     JSONObject responseObject = new JSONObject(jsonObject.toString());
                     JSONArray results = responseObject.getJSONArray(TAG_ARRAY_CATEGORIES);
-                    Log.i("getResults", String.valueOf(results));
+//                    Log.i("getResults", String.valueOf(results));
                     for (int i = 0; i < results.length(); i++) {
                         final ListNewsTopic newsTopicItem = new ListNewsTopic();
                         JSONObject topicObject = results.getJSONObject(i);
                         newsTopicItem.setCateTitle(topicObject.optString(TAG_TITLE));
                         newsTopicItem.setCategoryUrl(topicObject.optString(TAG_CATEGORY_URL));
-                        Log.i("getCateUrl", topicObject.optString(TAG_CATEGORY_URL));
+//                        Log.i("getCateUrl", topicObject.optString(TAG_CATEGORY_URL));
                         listNewsTopicArrayList.add(newsTopicItem);
                     }
                 } catch (JSONException e) {
