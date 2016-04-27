@@ -71,7 +71,7 @@ public class Fragment_TrangChu extends BaseFragment {
         }
         webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
         final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
-        webView.loadUrl("http://m.vtv.vn/app.htm");
+      
         webView.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 Log.i(TAG, "Processing webview url click...");
